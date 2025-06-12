@@ -98,7 +98,7 @@
       img.src = `assets/${item}.svg`;
 
       // Try multiple .ogg files with the same prefix-If it fails try .wav file
-      const maxVariants = 4;
+      const maxVariants = 3;
       const variant = Math.floor(Math.random() * maxVariants) + 1;
       const audioPath = `assets/${item}${variant}.ogg`;
 
