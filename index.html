@@ -1,148 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bingo Picker</title>
+  <meta charset="UTF-8" />
+  <title>Instrument Bingo Options</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; 
-     background-image: url('assets/background.svg'); /* Replace with your image path */
-     background-size: cover;
-     background-position: center;
-     background-repeat: no-repeat;
-     background-attachment: fixed; /* Optional: keeps background fixed while scrolling */
- }
-    
-	
-	img {
-	 width: 80%;
-	 max-width: 400px;
- }
-
- }	
-    
-	button {
-	 padding: 2vh 4vw;
-	 font-size: 2vw;
-	 margin: 2vh 1vw;
-	 border: none;
-	 border-radius: 0.5vw;
-	 background-color: #007BFF;
-	 color: white;
-	 cursor: pointer;
-}
-
-    #historyLog {
-      display: none;
-      margin-top: 20px;
-      max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: #f9f9f9;
-    }
-  </style>
-</head>
-<body>
-  <h1>Instrument Bingo Duets</h1>
-  <img id="bingoImage" src="assets/start.svg" alt="Bingo Ball" />
-  <audio id="bingoAudio" controls style="display:none;"></audio>
-  <br>
-  <img src="assets/next-button.svg" alt="Next" onclick="pickNext()" style="width:100px; cursor:pointer; margin:10px;">
-  <img src="assets/scramble-button.svg" alt="Scramble" onclick="scramble()" style="width:100px; cursor:pointer; margin:10px;">
-  <img src="assets/history-button.svg" alt="History Log" onclick="toggleHistory()" style="width:100px; cursor:pointer; margin:10px;">
-
-
-  <div id="historyLog">
-    <h3>Picked Items:</h3>
-    <ul id="historyList"></ul>
-  </div>
-
-  <script>
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    const originalItems = [
-      "acousticguitardoublebass", "cellopiano", "celloviolin", "cellopiano",
-      "cymbaldoublebass", "cymbalsnare", "electricbassbassdrum",
-      "electricbasselectricguitar", "electricbasspiano", "electricbasssaxophone",
-      "fluteacousticguitar", "fluteclarinet", "flutesnare", "flutesynth",
-      "hornoboe", "oboebassoon", "snarebassdrum", "synthelectricguitar",
-      "synthsaxophone", "tambourineacousticguitar", "timpanitrumpet",
-      "trombonetuba", "trumpettrombone", "trumpettuba", "violinpiano"
-    ];
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background-image: url('assets/Game Select Background.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
 
-    let bingoItems = shuffle([...new Set(originalItems)]);
-    let availableItems = [...bingoItems];
-    let history = [];
+    h1 {
+      font-size: 4vmin;
+	  margin: 2vmin 0;
+	  color: #000;
+	  text-align: center; /* This centers the title */
 
-    function pickNext() {
-      if (availableItems.length === 0) {
-        alert("All items have been picked! Click 'Scramble' to reset.");
-        return;
-      }
+    }
 
-      const index = Math.floor(Math.random() * availableItems.length);
-      const item = availableItems.splice(index, 1)[0];
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 2vmin;
+      height: 80vmin;
+      width: 80vmin;
+      margin: 0 auto;
+    }
 
-      const img = document.getElementById("bingoImage");
-      const audio = document.getElementById("bingoAudio");
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
 
-      // Display the SVG
-      img.src = `assets/${item}.svg`;
+    .option img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border: 0.5vmin solid black;
+      border-radius: 1vmin;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .option img:hover {
+      transform: scale(1.05);
+      border-color: #222;
+    }
 
       // Try multiple .ogg files with the same prefix-If it fails try .wav file
       const maxVariants = 2;
       const variant = Math.floor(Math.random() * maxVariants) + 1;
       const audioPath = `assets/${item}${variant}.ogg`;
 
-      fetch(audioPath, { method: 'HEAD' })
-        .then(response => {
-          if (response.ok) {
-            audio.src = audioPath;
-          } else {
-            audio.src = `assets/${item}.ogg`;
-          }
-          audio.play();
-        })
-        .catch(() => {
-          audio.src = `assets/${item}.wav`;
-          audio.play();
-        });
 
-      history.push(item);
-      updateHistoryLog();
-    }
+    @media (max-width: 600px) {
+      .options-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        height: 90vmin;
+        width: 90vmin;
+      }
 
-    function scramble() {
-      bingoItems = shuffle([...new Set(originalItems)]);
-      availableItems = [...bingoItems];
-      history = [];
-      document.getElementById("bingoImage").src = "assets/start.svg";
-      updateHistoryLog();
-      alert("Bingo items have been scrambled and reset!");
+      h1 {
+        font-size: 3vmin;
+      }
     }
+  </style>
+</head>
+<body>
+  <h1>Select a Bingo Game</h1>
 
-    function toggleHistory() {
-      const log = document.getElementById("historyLog");
-      log.style.display = log.style.display === "none" ? "block" : "none";
-    }
+  <div class="options-container">
+    <a class="option" href="Single Instrument Bingo.html">
+      <img src="assets/Single Instrument Bingo.svg" alt="Single Instrument Bingo" />
+    </a>
 
-    function updateHistoryLog() {
-      const list = document.getElementById("historyList");
-      list.innerHTML = "";
-      history.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        list.appendChild(li);
-      });
-    }
-  </script>
+    <a class="option" href="Mystery Single Instrument Bingo.html">
+      <img src="assets/Mystery Single Instrument Bingo.svg" alt="Mystery Single Instrument Bingo" />
+    </a>
+
+    <a class="option" href="Duet Instrument Bingo.html">
+      <img src="assets/Duet Instrument Bingo.svg" alt="Duet Instrument Bingo" />
+    </a>
+
+    <a class="option" href="Mystery Duet Instrument Bingo.html">
+      <img src="assets/Mystery Duet Instrument Bingo.svg" alt="Mystery Duet Instrument Bingo" />
+    </a>
+  </div>
 </body>
 </html>
