@@ -1,86 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Instrument Bingo Options</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <title>Instrument Bingo Options</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        h1 {
-            margin-bottom: 40px;
-        }
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background-image: url('assets/Game Select Background.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
 
-        .options-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+    h1 {
+      font-size: 4vmin;
+	  margin: 2vmin 0;
+	  color: #000;
+	  text-align: center; /* This centers the title */
 
-        .option {
-            flex: 0 1 15vw; /* Each option takes up 15% of the viewport width */
-            max-width: 200px;
-            text-align: center;
-            text-decoration: none;
-            color: black;
-        }
+    }
 
-        .option img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 2px solid #4CAF50;
-            transition: transform 0.2s, border-color 0.2s;
-        }
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 2vmin;
+      height: 80vmin;
+      width: 80vmin;
+      margin: 0 auto;
+    }
 
-        .option img:hover {
-            transform: scale(1.05);
-            border-color: #45a049;
-        }
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
 
-        .label {
-            margin-top: 10px;
-            font-size: 1rem;
-            display: block;
-        }
+    .option img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border: 0.5vmin solid black;
+      border-radius: 1vmin;
+      transition: transform 0.2s, border-color 0.2s;
+    }
 
-        @media (max-width: 600px) {
-            .option {
-                flex: 0 1 40vw;
-            }
-        }
-    </style>
+    .option img:hover {
+      transform: scale(1.05);
+      border-color: #222;
+    }
+
+    @media (max-width: 600px) {
+      .options-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        height: 90vmin;
+        width: 90vmin;
+      }
+
+      h1 {
+        font-size: 3vmin;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Select a Bingo Game</h1>
+  <h1>Select a Bingo Game</h1>
 
-    <div class="options-container">
-        <a class="option" href="single_labeled.html">
-            <img src="images/single_labeled.png" alt="Single Labeled">
-            <span class="label">Single Instrument Bingo (Labeled)</span>
-        </a>
+  <div class="options-container">
+    <a class="option" href="Single Instrument Bingo.html">
+      <img src="assets/Single Instrument Bingo.svg" alt="Single Instrument Bingo" />
+    </a>
 
-        <a class="option" href="single_unlabeled.html">
-            <img src="images/single_unlabeled.png" alt="Single Unlabeled">
-            <span class="label">Single Instrument Bingo (Unlabeled)</span>
-        </a>
+    <a class="option" href="Mystery Single Instrument Bingo.html">
+      <img src="assets/Mystery Single Instrument Bingo.svg" alt="Mystery Single Instrument Bingo" />
+    </a>
 
-        <a class="option" href="duet_labeled.html">
-            <img src="images/duet_labeled.png" alt="Duet Labeled">
-            <span class="label">Duet Instrument Bingo (Labeled)</span>
-        </a>
+    <a class="option" href="Duet Instrument Bingo.html">
+      <img src="assets/Duet Instrument Bingo.svg" alt="Duet Instrument Bingo" />
+    </a>
 
-        <a class="option" href="duet_unlabeled.html">
-            <img src="images/duet_unlabeled.png" alt="Duet Unlabeled">
-            <span class="label">Duet Instrument Bingo (Unlabeled)</span>
-        </a>
-    </div>
+    <a class="option" href="Mystery Duet Instrument Bingo.html">
+      <img src="assets/Mystery Duet Instrument Bingo.svg" alt="Mystery Duet Instrument Bingo" />
+    </a>
+  </div>
 </body>
-</html>
-
 </html>
